@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "name": "All",
+        "numberOfItems": 235
+    },
+    {
+        "id": 2,
+        "name": "Breakfast",
+        "numberOfItems": 40
+    },
+    {
+        "id": 3,
+        "name": "Soups",
+        "numberOfItems": 15
+    },
+    {
+        "id": 4,
+        "name": "Pasta",
+        "numberOfItems": 30
+    },
+    {
+        "id": 5,
+        "name": "Main Course",
+        "numberOfItems": 20
+    }
+]

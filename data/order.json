@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "name": "Margherita Pizza",
+        "price": 12.99,
+        "quantity": 2,
+        "img": "https://example.com/images/margherita-pizza.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Chicken Alfredo",
+        "price": 15.50,
+        "quantity": 1,
+        "img": "https://example.com/images/chicken-alfredo.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Caesar Salad",
+        "price": 8.75,
+        "quantity": 3,
+        "img": "https://example.com/images/caesar-salad.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Garlic Bread",
+        "price": 4.25,
+        "quantity": 4,
+        "img": "https://example.com/images/garlic-bread.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Tiramisu",
+        "price": 6.99,
+        "quantity": 2,
+        "img": "https://example.com/images/tiramisu.jpg"
+    }
+]

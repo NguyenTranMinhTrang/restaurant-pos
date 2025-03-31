@@ -1,5 +1,5 @@
 import React from "react"
-import { ListCollapse, Menu, NotebookText, Settings, Truck } from "lucide-react-native";
+import { ListCollapse, Menu, NotebookText, Settings, Table, Truck } from "lucide-react-native";
 import { IconTabbar } from "./Tabbar"
 
 export const icon: { [ key: string ]: (props: IconTabbar) => JSX.Element } = {
@@ -8,6 +8,7 @@ export const icon: { [ key: string ]: (props: IconTabbar) => JSX.Element } = {
     delivery: (props: IconTabbar) => <Truck color={props.color} size={20} />,
     setting: (props: IconTabbar) => <Settings color={props.color} size={20} />,
     more: (props: IconTabbar) => <ListCollapse color={props.color} size={20} />,
+    'table-service': (props: IconTabbar) => <Table color={props.color} size={20} />,
 }
 
-export const showRoutes = [ "index", "reservation", "delivery" ];
+export const showRoutes = [ "index", "table-service", "delivery" ];

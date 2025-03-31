@@ -10,6 +10,10 @@ export const COLORS = {
     lightGray: '#C7C7CC',
     error: '#FF3B30',
     success: '#34C759',
+    icon: '#000000',
+    textDark: '#333333',
+    textLight: '#666666',
+    border: '#E4E4E7',
 };
 
 export const SPACING = {
@@ -31,8 +35,15 @@ export const globalStyles = StyleSheet.create({
     row: {
         flexDirection: 'row',
     },
+    rowSpaceBetween: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
     column: {
         flexDirection: 'column',
+    },
+    alignItemsCenter: {
+        alignItems: 'center',
     },
     p1: { padding: SPACING.small },
     p2: { padding: SPACING.medium },
@@ -103,4 +114,90 @@ export const globalStyles = StyleSheet.create({
     mb2: { marginBottom: SPACING.medium },
     mb3: { marginBottom: SPACING.large },
     mb4: { marginBottom: SPACING.xlarge },
+
+    radius1: { borderRadius: SPACING.small },
+    radius2: { borderRadius: SPACING.medium },
+    radius3: { borderRadius: SPACING.large },
+    radius4: { borderRadius: SPACING.xlarge },
+});
+
+const fonts = {
+    regular: 'System',
+    bold: 'System',
+    italic: 'System',
+};
+
+export const textStyles = StyleSheet.create({
+    base: {
+        fontFamily: fonts.regular,
+        fontSize: 16,
+        color: COLORS.textDark,
+        lineHeight: 24,
+    },
+    // Heading styles
+    h1: {
+        fontFamily: fonts.bold,
+        fontSize: 32,
+        fontWeight: '700',
+        color: COLORS.textDark,
+        lineHeight: 40,
+    },
+    h2: {
+        fontFamily: fonts.bold,
+        fontSize: 24,
+        fontWeight: '600',
+        color: COLORS.textDark,
+        lineHeight: 32,
+    },
+    h3: {
+        fontFamily: fonts.bold,
+        fontSize: 20,
+        fontWeight: '600',
+        color: COLORS.textDark,
+        lineHeight: 28,
+    },
+    // Paragraph styles
+    body: {
+        fontFamily: fonts.regular,
+        fontSize: 16,
+        color: COLORS.textDark,
+        lineHeight: 24,
+    },
+    bodyLight: {
+        fontFamily: fonts.regular,
+        fontSize: 16,
+        color: COLORS.textLight,
+        lineHeight: 24,
+    },
+    // Caption or smaller text
+    caption: {
+        fontFamily: fonts.regular,
+        fontSize: 14,
+        color: COLORS.textLight,
+        lineHeight: 20,
+    },
+    // Error text
+    error: {
+        fontFamily: fonts.regular,
+        fontSize: 14,
+        color: COLORS.error,
+        lineHeight: 20,
+    },
+    // Button text
+    button: {
+        fontFamily: fonts.bold,
+        fontSize: 16,
+        fontWeight: '600',
+        color: COLORS.primary,
+        lineHeight: 24,
+    },
+    // Utility styles (optional)
+    bold: {
+        fontFamily: fonts.bold,
+        fontWeight: '700',
+    },
+    italic: {
+        fontFamily: fonts.italic,
+        fontStyle: 'italic',
+    },
 });

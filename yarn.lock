@@ -1775,7 +1775,7 @@
     "@rn-primitives/slot" "1.1.0"
     "@rn-primitives/types" "1.1.0"
 
-"@rn-primitives/slot@1.1.0", "@rn-primitives/slot@~1.1.0":
+"@rn-primitives/slot@1.1.0", "@rn-primitives/slot@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rn-primitives/slot/-/slot-1.1.0.tgz#954086820fa71ddcda948e5b2b34c0bfa1cad4d4"
   integrity sha512-/6LkEPMoGGyJiCAYo3MTCy9letbH6SIm5Dw6wal/ypq3Jvar9llYJstIP2KSZNhx3PmZMN1a581KVgNZ2Jyt5g==
@@ -1790,7 +1790,7 @@
     "@rn-primitives/slot" "1.1.0"
     "@rn-primitives/types" "1.1.0"
 
-"@rn-primitives/types@1.1.0", "@rn-primitives/types@~1.1.0":
+"@rn-primitives/types@1.1.0", "@rn-primitives/types@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rn-primitives/types/-/types-1.1.0.tgz#2b7b0c2599dfe46329867d570f6ba8d0608f9843"
   integrity sha512-duS4La965KsVVAeytcSFDJUafw6ZScvejgxlFkwqzW06pDBRMxwfunmZmf3JZ82P/2xaEVPIGseeyblertC/+g==
@@ -3765,6 +3765,11 @@ image-size@^1.0.2:
   integrity sha512-4S8fwbO6w3GeCVN6OPtA9I5IGKkcDMPcKndtUlpJuCwu7JLjtj7JZpwqLuyY2nrmQT3AWsCJLSKPsc2mPBSl3w==
   dependencies:
     queue "6.0.2"
+
+immer@^10.1.1:
+  version "10.1.1"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-10.1.1.tgz#206f344ea372d8ea176891545ee53ccc062db7bc"
+  integrity sha512-s2MPrmjovJcoMaHtx6K11Ra7oD05NT97w1IC5zpMkT6Atjr7H8LjaDd81iIxUYpMKSRRNMJE703M1Fhr/TctHw==
 
 import-fresh@^2.0.0:
   version "2.0.0"
@@ -6423,6 +6428,11 @@ update-browserslist-db@^1.1.1:
   dependencies:
     escalade "^3.2.0"
     picocolors "^1.1.1"
+
+use-immer@^0.11.0:
+  version "0.11.0"
+  resolved "https://registry.yarnpkg.com/use-immer/-/use-immer-0.11.0.tgz#8dd46cbc913cbc3298e60b8f2d9f58d82fc22e08"
+  integrity sha512-RNAqi3GqsWJ4bcCd4LMBgdzvPmTABam24DUaFiKfX9s3MSorNRz9RDZYJkllJoMHUxVLMDetwAuCDeyWNrp1yA==
 
 use-latest-callback@^0.2.1:
   version "0.2.3"

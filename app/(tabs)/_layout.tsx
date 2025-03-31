@@ -1,6 +1,5 @@
 import { Tabs } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
 import TabBar from "~/components/tabbar/Tabbar";
 
 const TabLayout = () => {
@@ -17,7 +16,7 @@ const TabLayout = () => {
             <Tabs.Screen
                 name="table-service"
                 options={{
-                    title: "Table Service",
+                    title: "Table",
                     headerShown: false,
                 }}
             />
