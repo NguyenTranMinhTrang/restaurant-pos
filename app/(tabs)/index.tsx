@@ -6,7 +6,8 @@ import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ButtonHeader from "~/components/button/ButtonHeader";
 import SearchInput from "~/components/input/SearchInput";
-import ListMenu from "~/components/memu/ListMenu";
+import CurrentTable from "~/components/memu/CurrentTable";
+import ListMenu, { ListMenuRef } from "~/components/memu/ListMenu";
 import ModalChooseTable from "~/components/memu/ModalChooseTable";
 import ModalBottomSheet, { ModalBottomSheetRef } from "~/components/modal/ModalBottomSheet";
 import { Button } from "~/components/ui/button";
@@ -18,6 +19,7 @@ const MenuTab = () => {
     const router = useRouter();
 
     const bottomSheetRef = useRef<ModalBottomSheetRef>(null);
+    const refMenu = useRef<ListMenuRef>(null);
 
     const onEdit = () => {
         router.push('/payment');
@@ -31,30 +33,27 @@ const MenuTab = () => {
         );
     }
 
+    const onSearch = (text: string) => {
+        refMenu?.current?.onSearch(text);
+    }
+
     const renderSearchBar = () => {
         return (
             <View style={[ globalStyles.mb2 ]}>
-                <SearchInput />
+                <SearchInput
+                    onChangeText={onSearch}
+                />
             </View>
         )
     }
     const renderInforTable = () => {
         return (
             <View style={[ globalStyles.rowSpaceBetween, globalStyles.alignItemsCenter, globalStyles.mb2 ]}>
-                <View className="flex-row items-center">
-                    <Text style={textStyles.h3}>Table 4
-                        <Text style={[ textStyles.bodyLight, { fontSize: 20 } ]}> Floyd Miles</Text>
-                    </Text>
-
-                    <View style={[ styles.ball, globalStyles.center, globalStyles.ml1 ]} >
-                        <Text style={{ color: COLORS.white }}>3</Text>
-                    </View>
-                </View>
-
+                <CurrentTable />
                 <Button
                     variant={'outline'}
                     size='icon'
-                    style={{ borderRadius: 10 }}
+                    className="bg-white rounded-xl"
                     onPress={onEdit}>
                     <Pencil color={COLORS.icon} size={18} />
                 </Button>
@@ -92,7 +91,9 @@ const MenuTab = () => {
                 {renderHeader()}
                 {renderInforTable()}
                 {renderSearchBar()}
-                <ListMenu />
+                <ListMenu
+                    ref={refMenu}
+                />
             </View>
 
             <ModalBottomSheet
@@ -104,14 +105,5 @@ const MenuTab = () => {
         </SafeAreaView>
     )
 }
-
-const styles = StyleSheet.create({
-    ball: {
-        height: 25,
-        width: 25,
-        backgroundColor: COLORS.primary,
-        borderRadius: 15,
-    }
-});
 
 export default MenuTab;

@@ -7,6 +7,9 @@ import order from "../data/order.json"
 import PaymentItem from "~/components/payment/PaymentItem"
 import ButtonIcon from "~/components/button/ButtonIcon"
 import ButtonHeader from "~/components/button/ButtonHeader"
+import ListPayment from "~/components/payment/ListPayment"
+import PaymentCurrentCount from "~/components/payment/PaymentCurrentCount"
+import PaymentInformation from "~/components/payment/PaymentInformation"
 
 export interface OrderIem {
     id: number,
@@ -39,12 +42,7 @@ const Payment = () => {
                     variant={"outline"}
                     size={"lg"}
                     style={{ borderRadius: 25, backgroundColor: COLORS.white }}>
-                    <View style={[ globalStyles.row, globalStyles.center ]}>
-                        <Text className="mr-3" style={textStyles.h3}>Table 4</Text>
-                        <View className="h-6 w-6 rounded-full bg-primary items-center justify-center">
-                            <Text style={{ color: COLORS.white }}>5</Text>
-                        </View>
-                    </View>
+                    <PaymentCurrentCount />
                 </Button>
 
                 <ButtonHeader
@@ -53,27 +51,6 @@ const Payment = () => {
             </View>
         )
     }
-
-    const renderListOrder = () => {
-        return (
-            <View className="flex-1 mb-3">
-                <Text style={[ textStyles.caption ]} className="font-bold mb-2">List Order</Text>
-                <ScrollView showsVerticalScrollIndicator={false}>
-                    {
-                        order.map((item, index) => {
-                            return (
-                                <PaymentItem
-                                    key={`${item.id}-${index}`}
-                                    item={item}
-                                />
-                            )
-                        })
-                    }
-                </ScrollView>
-            </View>
-        )
-    }
-
     const renderOptions = () => {
         return (
             <View className="mb-3">
@@ -93,30 +70,6 @@ const Payment = () => {
                         label="Delivery"
                         icon={<Truck color={COLORS.icon} size={16} />}
                     />
-                </View>
-            </View>
-        )
-    }
-
-    const renderPaymentInfor = () => {
-        return (
-            <View className="mb-3">
-                <Text style={[ textStyles.caption ]} className="font-bold mb-2">Payment Information</Text>
-                <View className="bg-white px-4 rounded-md">
-                    <View className="flex-row items-center justify-between py-3 border-b border-gray-200">
-                        <Text style={textStyles.caption}>Subtotal</Text>
-                        <Text>$2.50</Text>
-                    </View>
-
-                    <View className="flex-row items-center justify-between py-3 border-b border-gray-200">
-                        <Text style={textStyles.caption}>Tax 5%</Text>
-                        <Text >$2.50</Text>
-                    </View>
-
-                    <View className="flex-row items-center justify-between py-3">
-                        <Text style={textStyles.h3}>Total Amount</Text>
-                        <Text style={textStyles.h3}>$2.50</Text>
-                    </View>
                 </View>
             </View>
         )
@@ -147,9 +100,9 @@ const Payment = () => {
         <SafeAreaView className="flex-1 bg-background">
             <View className="flex-1 px-5">
                 {renderHeader()}
-                {renderListOrder()}
+                <ListPayment />
                 {renderOptions()}
-                {renderPaymentInfor()}
+                <PaymentInformation />
                 {renderPaymentMethod()}
 
                 <Button className="w-full">

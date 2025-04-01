@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { ActivityIndicator, FlatList, Image, ListRenderItem, ListRenderItemInfo, ScrollView, Text, View } from "react-native";
 import { COLORS, SPACING, globalStyles, textStyles } from "~/constants/styleGlobal";
 import { useImmer } from "use-immer";
 import { Button } from "../ui/button";
 import category from "../../data/category.json";
 import items from "../../data/items.json";
-import { Minus, Plus } from "lucide-react-native";
 import MenuItem from "./MenuItem";
 
 interface Category {
@@ -15,10 +14,14 @@ interface Category {
 }
 
 export interface Item {
+    id: number;
     name: string;
     price: number;
     quantity: number;
-    vegOrNonVeg: string;
+    vegOrNonVeg: {
+        label: string;
+        color: string;
+    };
     category: number;
     img: string;
 }
@@ -30,7 +33,16 @@ interface State {
     filterItems: Item[];
     activeCategory: number;
 }
-const ListMenu = () => {
+
+interface ListMenuProps {
+
+}
+
+export interface ListMenuRef {
+    onSearch: (text: string) => void;
+}
+
+const ListMenu = forwardRef<ListMenuRef, ListMenuProps>((props, ref) => {
     const [ state, setState ] = useImmer<State>({
         loading: true,
         categoryList: [],
@@ -42,6 +54,36 @@ const ListMenu = () => {
     useEffect(() => {
         loadData();
     }, []);
+
+    const onSearch = (text: string) => {
+        if (text) {
+            const filterItems = state.items.filter(item => {
+                if (state.activeCategory === 1) {
+                    return item.name.toLowerCase().includes(text.toLowerCase());
+                }
+                return item.name.toLowerCase().includes(text.toLowerCase()) && item.category === state.activeCategory;
+            });
+
+            setState(draft => {
+                draft.filterItems = filterItems;
+            })
+        } else {
+            if (state.activeCategory === 1) {
+                setState(draft => {
+                    draft.filterItems = state.items;
+                })
+            } else {
+                const filterItems = state.items.filter(item => item.category === state.activeCategory);
+                setState(draft => {
+                    draft.filterItems = filterItems;
+                });
+            }
+        }
+    }
+
+    useImperativeHandle(ref, () => ({
+        onSearch
+    }))
 
     const loadData = () => {
         const listCategory: Category[] = [ ...category ];
@@ -126,6 +168,6 @@ const ListMenu = () => {
             {renderList()}
         </View>
     );
-}
+})
 
 export default ListMenu;

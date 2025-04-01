@@ -4,24 +4,29 @@ import { COLORS, textStyles } from "~/constants/styleGlobal"
 import { Button } from "../ui/button"
 import { OrderIem } from "~/app/payment"
 import { useState } from "react"
+import { useAppDispatch } from "~/redux/hooks/hook"
+import { decreaseQuantity, deleteOrder, increaseQuantity } from "~/redux/reducers/orderReducer"
 
 interface PaymentItemProps {
     item: OrderIem;
 }
 const PaymentItem = (props: PaymentItemProps) => {
-
     const { item } = props;
+    const dispatch = useAppDispatch();
 
-    const [ quantity, setQuantity ] = useState(1);
 
     const onIncreaseQuantity = () => {
-        setQuantity(prev => prev + 1);
+        dispatch(increaseQuantity(item.id));
     }
 
     const onDecreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(prev => prev - 1);
+        if (item.quantity > 1) {
+            dispatch(decreaseQuantity(item.id));
         }
+    }
+
+    const onDelete = () => {
+        dispatch(deleteOrder(item.id));
     }
 
     return (
@@ -39,7 +44,7 @@ const PaymentItem = (props: PaymentItemProps) => {
             <View className="flex-[0.65]">
                 <View className="flex-row items-center justify-between">
                     <Text style={[ textStyles.body, textStyles.bold ]}>{item.name}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={onDelete}>
                         <Trash2 color={COLORS.error} size={18} />
                     </TouchableOpacity>
                 </View>
@@ -61,7 +66,7 @@ const PaymentItem = (props: PaymentItemProps) => {
                             <Plus color={COLORS.icon} size={16} />
                         </Button>
 
-                        <Text style={[ textStyles.body ]} className="px-4"> {quantity} </Text>
+                        <Text style={[ textStyles.body ]} className="px-4"> {item.quantity} </Text>
 
                         <Button
                             variant={'outline'}
@@ -72,10 +77,8 @@ const PaymentItem = (props: PaymentItemProps) => {
                         </Button>
                     </View>
 
-                    <Text style={[ textStyles.body, { color: COLORS.primary } ]}>{item.price * quantity} $</Text>
-
+                    <Text style={[ textStyles.body, { color: COLORS.primary } ]}>{item.price * item.quantity} $</Text>
                 </View>
-
             </View>
         </View>
     )

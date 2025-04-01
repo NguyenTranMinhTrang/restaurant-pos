@@ -4,6 +4,8 @@ import { Button } from "../ui/button"
 import { Minus, Plus } from "lucide-react-native"
 import { Item } from "./ListMenu"
 import { useState } from "react"
+import { useAppDispatch } from "~/redux/hooks/hook"
+import { addOrder } from "~/redux/reducers/orderReducer"
 
 
 interface MenuItemProps {
@@ -12,9 +14,11 @@ interface MenuItemProps {
 const MenuItem = (props: MenuItemProps) => {
     const { item } = props;
     const [ quantity, setQuantity ] = useState(1);
+    const dispatch = useAppDispatch();
 
     const onIncreaseQuantity = () => {
         setQuantity(prev => prev + 1);
+        dispatch(addOrder(item));
     }
 
     const onDecreaseQuantity = () => {
@@ -31,22 +35,28 @@ const MenuItem = (props: MenuItemProps) => {
                 globalStyles.row,
                 {
                     backgroundColor: COLORS.white,
-                    height: 110,
                 }
             ]}>
             <View style={[ { flex: 0.4 }, globalStyles.center, globalStyles.mr2 ]}>
                 <Image
                     source={{ uri: item.img }}
-                    style={{ height: '100%', width: '100%', borderRadius: SPACING.small }}
+                    style={{ height: 90, width: '100%', borderRadius: SPACING.small }}
                     resizeMode="cover"
                 />
             </View>
             <View style={[
                 globalStyles.full,
-                globalStyles.column,
-
             ]}>
-                <Text style={[ textStyles.body, textStyles.bold ]}>{item.name}</Text>
+                <View className="flex-row items-start justify-betweens">
+                    <Text className="flex-1" style={[ textStyles.body, textStyles.bold ]}>{item.name}</Text>
+                    <View className="flex-row items-center">
+                        <View
+                            className={`h-2 w-2 rounded-full my-1`}
+                            style={{ backgroundColor: item.vegOrNonVeg.color }}
+                        />
+                        <Text style={textStyles.caption} className="ml-2">{item.vegOrNonVeg.label}</Text>
+                    </View>
+                </View>
                 <Text style={[ textStyles.body, { color: COLORS.primary } ]}>{item.price} $</Text>
                 <View style={[ globalStyles.row, globalStyles.mt1 ]}>
                     <Button
