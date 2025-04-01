@@ -34,6 +34,7 @@ const SearchInput = (props: SearchInputProps) => {
             </View>
 
             <TextInput
+                value={text}
                 cursorColor={COLORS.icon}
                 placeholder="Search ..."
                 style={{ flex: 1, fontSize: 16 }}

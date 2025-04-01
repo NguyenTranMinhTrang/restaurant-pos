@@ -156,6 +156,13 @@ export const textStyles = StyleSheet.create({
         color: COLORS.textDark,
         lineHeight: 28,
     },
+    h4: {
+        fontFamily: fonts.bold,
+        fontSize: 18,
+        fontWeight: '600',
+        color: COLORS.textDark,
+        lineHeight: 26,
+    },
     // Paragraph styles
     body: {
         fontFamily: fonts.regular,
