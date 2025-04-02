@@ -1,11 +1,13 @@
 import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { LayoutChangeEvent, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { COLORS, globalStyles, SPACING } from "~/constants/styleGlobal";
 import { icon, showRoutes } from "./TabbarConstants";
 import { ListCollapse } from "lucide-react-native";
 import TabbarButton from "./TabbarButton";
-import { useRef, useState } from "react";
-import { useAnimatedStyle, useSharedValue, withTiming } from "react-native-reanimated";
+import { useRef } from "react";
+import { NavigationRoute, ParamListBase } from "@react-navigation/native";
+import ModalBottomSheet, { ModalBottomSheetRef } from "../modal/ModalBottomSheet";
+import TabbarMenuHide from "./TabbarMenuHide";
 
 
 export interface IconTabbar {
@@ -15,26 +17,64 @@ export interface IconTabbar {
 const TabBar = (props: BottomTabBarProps) => {
     const { state, descriptors, navigation } = props;
 
-    const [ dimentions, setDimentions ] = useState({ height: 0, width: 0 });
+    const refModal = useRef<ModalBottomSheetRef>(null);
 
-    const filteredRoutes = useRef(state.routes.filter((route) => showRoutes.includes(route.name)));
+    const hideRoutes: NavigationRoute<ParamListBase, string>[] = [];
 
-    const buttonWidth = dimentions.width / (filteredRoutes.current.length + 1);
+    const filteredRoutes = useRef(state.routes.filter((route) => {
+        if (showRoutes.includes(route.name)) {
+            return true;
+        } else {
+            hideRoutes.push(route);
+            return false;
+        }
+    }));
 
+    const onPress = (isFocused: boolean, route: NavigationRoute<ParamListBase, string>) => {
+        const event = navigation.emit({
+            type: 'tabPress',
+            target: route.key,
+            canPreventDefault: true,
+        });
 
-    const onLayout = (event: LayoutChangeEvent) => {
-        const { width, height } = event.nativeEvent.layout;
-        setDimentions({ width, height });
+        if (!isFocused && !event.defaultPrevented) {
+            navigation.navigate(route.name, route.params);
+        }
+    };
+
+    const onCloseMenu = () => {
+        refModal.current?.close();
     }
 
     const onPressMore = () => {
+        refModal.current?.open(
+            <View>
+                {
+                    hideRoutes.map((route, index) => {
+                        const { options } = descriptors[ route.key ];
+                        const isFocused = route.name === activeRouteName;
 
+                        return (
+                            <TabbarMenuHide
+                                key={route.key}
+                                route={route}
+                                isFocused={isFocused}
+                                icon={icon[ route.name ]({ color: isFocused ? COLORS.primary : '#222' })}
+                                label={options.title ?? ""}
+                                onPress={onPress}
+                                onCloseMenu={onCloseMenu}
+                            />
+                        )
+                    })
+                }
+            </View>
+        );
     }
 
     const activeRouteName = state.routes[ state.index ].name;
 
     return (
-        <View style={styles.tabBar} onLayout={onLayout}>
+        <View style={styles.tabBar}>
             {filteredRoutes.current.map((route, index) => {
 
                 const { options } = descriptors[ route.key ];
@@ -46,18 +86,6 @@ const TabBar = (props: BottomTabBarProps) => {
                             : route.name;
 
                 const isFocused = route.name === activeRouteName;
-
-                const onPress = () => {
-                    const event = navigation.emit({
-                        type: 'tabPress',
-                        target: route.key,
-                        canPreventDefault: true,
-                    });
-
-                    if (!isFocused && !event.defaultPrevented) {
-                        navigation.navigate(route.name, route.params);
-                    }
-                };
 
                 const onLongPress = () => {
                     navigation.emit({
@@ -73,7 +101,7 @@ const TabBar = (props: BottomTabBarProps) => {
                         title={options.title ?? ""}
                         isFocused={isFocused}
                         icon={icon[ route.name ]({ color: isFocused ? COLORS.primary : '#222' })}
-                        onPress={onPress}
+                        onPress={() => onPress(isFocused, route)}
                         onLongPress={onLongPress}
                     />
                 );
@@ -87,6 +115,10 @@ const TabBar = (props: BottomTabBarProps) => {
                     More
                 </Text>
             </TouchableOpacity>
+
+            <ModalBottomSheet
+                ref={refModal}
+            />
 
         </View>
     );

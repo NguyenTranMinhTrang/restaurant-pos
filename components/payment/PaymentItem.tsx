@@ -77,7 +77,7 @@ const PaymentItem = (props: PaymentItemProps) => {
                         </Button>
                     </View>
 
-                    <Text style={[ textStyles.body, { color: COLORS.primary } ]}>{item.price * item.quantity} $</Text>
+                    <Text style={[ textStyles.body, { color: COLORS.primary } ]}>{(item.price * item.quantity).toFixed(2)} $</Text>
                 </View>
             </View>
         </View>

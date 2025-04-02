@@ -17,17 +17,17 @@ const PaymentInformation = () => {
             <View className="bg-white px-4 rounded-md">
                 <View className="flex-row items-center justify-between py-3 border-b border-gray-200">
                     <Text style={textStyles.caption}>Subtotal</Text>
-                    <Text>${totalAmount}</Text>
+                    <Text>${totalAmount.toFixed(2)}</Text>
                 </View>
 
                 <View className="flex-row items-center justify-between py-3 border-b border-gray-200">
                     <Text style={textStyles.caption}>Tax 5%</Text>
-                    <Text >${tax}</Text>
+                    <Text >${tax.toFixed(2)}</Text>
                 </View>
 
                 <View className="flex-row items-center justify-between py-3">
                     <Text style={textStyles.h3}>Total Amount</Text>
-                    <Text style={textStyles.h3}>${totalAmount + tax}</Text>
+                    <Text style={textStyles.h3}>${(totalAmount + tax).toFixed(2)}</Text>
                 </View>
             </View>
         </View>
